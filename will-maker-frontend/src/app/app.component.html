@@ -1,0 +1,74 @@
+<div>
+  <mat-form-field>
+    <mat-label>Your social ID</mat-label>
+    <input [(ngModel)]="will.creatorSocialId" matInput type="text"/>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Your Ethereum address</mat-label>
+    <input [(ngModel)]="will.creatorEtherAddress" matInput type="text"/>
+  </mat-form-field>
+
+
+  <h2>Beneficiary list</h2>
+  <div *ngIf="will && will.beneficiaryList">
+    <p>Here is the list of beneficiaries</p>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let ben"> {{ben.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="etherAddress">
+        <th mat-header-cell *matHeaderCellDef> Ether address</th>
+        <td mat-cell *matCellDef="let ben"> {{ben.etherAddress}} </td>
+      </ng-container>
+      <ng-container matColumnDef="percentage">
+        <th mat-header-cell *matHeaderCellDef>Percentage</th>
+        <td mat-cell *matCellDef="let ben"> {{ben.percentage}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let ben">
+          <button mat-icon-button color="warn">
+            <mat-icon (click)="deleteBen(ben.etherAddress)">delete</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon (click)="editBen(ben.etherAddress)">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+    </table>
+
+
+  </div>
+
+  <div>
+    <h2>Add new beneficiary</h2>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="benName"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Ether address</mat-label>
+      <input matInput type="text" [(ngModel)]="benAddress"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Percentage</mat-label>
+      <input matInput type="number" [(ngModel)]="benPercentage"/>
+    </mat-form-field>
+
+    <button (click)="addNewBen()" mat-flat-button color="accent">Add</button>
+  </div>
+
+  <button mat-raised-button (click)="saveWill()" color="primary">Save will</button>
+  <button mat-raised-button (click)="createContract()" color="warn">Create contract</button>
+</div>
