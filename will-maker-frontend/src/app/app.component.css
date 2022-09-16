@@ -1,3 +1,26 @@
-table {
+#app-container {
+  max-width: 1188px;
+  margin: 10px auto;
+}
+
+#add-new-ben {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+#will-details-container {
+  display: flex;
+}
+#will-details-right {
+  display: flex;
+  flex-direction: column;
+}
+#will-details-right {
+  padding-left: 40px;
+  flex: 1;
+}
+
+#will-details-right table {
   width: 100%;
 }

@@ -1,74 +1,98 @@
-<div>
-  <mat-form-field>
-    <mat-label>Your social ID</mat-label>
-    <input [(ngModel)]="will.creatorSocialId" matInput type="text"/>
-  </mat-form-field>
-
-
-  <mat-form-field>
-    <mat-label>Your Ethereum address</mat-label>
-    <input [(ngModel)]="will.creatorEtherAddress" matInput type="text"/>
-  </mat-form-field>
-
-
-  <h2>Beneficiary list</h2>
-  <div *ngIf="will && will.beneficiaryList">
-    <p>Here is the list of beneficiaries</p>
-    <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name</th>
-        <td mat-cell *matCellDef="let ben"> {{ben.name}} </td>
-      </ng-container>
-      <ng-container matColumnDef="etherAddress">
-        <th mat-header-cell *matHeaderCellDef> Ether address</th>
-        <td mat-cell *matCellDef="let ben"> {{ben.etherAddress}} </td>
-      </ng-container>
-      <ng-container matColumnDef="percentage">
-        <th mat-header-cell *matHeaderCellDef>Percentage</th>
-        <td mat-cell *matCellDef="let ben"> {{ben.percentage}} </td>
-      </ng-container>
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let ben">
-          <button mat-icon-button color="warn">
-            <mat-icon (click)="deleteBen(ben.etherAddress)">delete</mat-icon>
-          </button>
-          <button mat-icon-button color="primary">
-            <mat-icon (click)="editBen(ben.etherAddress)">edit</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
-
-    </table>
-
-
-  </div>
-
-  <div>
-    <h2>Add new beneficiary</h2>
+<div id="app-container">
+  <mat-card>
+    <h1>Will maker app</h1>
     <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput type="text" [(ngModel)]="benName"/>
+      <mat-label>Your social ID</mat-label>
+      <input [(ngModel)]="will.creatorSocialId" matInput type="text"/>
     </mat-form-field>
 
+    <br>
     <mat-form-field>
-      <mat-label>Ether address</mat-label>
-      <input matInput type="text" [(ngModel)]="benAddress"/>
+      <mat-label>Your Ethereum address</mat-label>
+      <input [(ngModel)]="will.creatorEtherAddress" matInput type="text"/>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Percentage</mat-label>
-      <input matInput type="number" [(ngModel)]="benPercentage"/>
-    </mat-form-field>
 
-    <button (click)="addNewBen()" mat-flat-button color="accent">Add</button>
-  </div>
+  </mat-card>
+  <br>
+  <br>
+  <mat-card>
+    <div id="will-details-container">
+      <div id="will-details-left">
+        <h2>Add new beneficiary</h2>
+        <div id="add-new-ben">
+          <mat-form-field appearance="standard">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="benName"/>
+          </mat-form-field>
 
-  <button mat-raised-button (click)="saveWill()" color="primary">Save will</button>
-  <button mat-raised-button (click)="createContract()" color="warn">Create contract</button>
+          <mat-form-field appearance="standard">
+            <mat-label>Ether address</mat-label>
+            <input matInput type="text" [(ngModel)]="benAddress"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Percentage</mat-label>
+            <input min="0" max="100" matInput type="number" [(ngModel)]="benPercentage"/>
+          </mat-form-field>
+
+        </div>
+
+        <button (click)="addNewBen()" mat-flat-button color="accent">Add</button>
+
+
+      </div>
+
+      <div id="will-details-right">
+
+        <h2>Your will in details</h2>
+        <div *ngIf="will && will.beneficiaryList">
+          <p>Here is the list of beneficiaries</p>
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let ben"> {{ben.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="etherAddress">
+              <th mat-header-cell *matHeaderCellDef> Ether address</th>
+              <td mat-cell *matCellDef="let ben"> {{ben.etherAddress}} </td>
+            </ng-container>
+            <ng-container matColumnDef="percentage">
+              <th mat-header-cell *matHeaderCellDef>Percentage</th>
+              <td mat-cell *matCellDef="let ben"> {{ben.percentage}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let ben">
+                <button mat-icon-button color="warn">
+                  <mat-icon (click)="deleteBen(ben.etherAddress)">delete</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                  <mat-icon (click)="editBen(ben.etherAddress)">edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+          </table>
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </mat-card>
+  <br>
+  <br>
+
+  <mat-card>
+    <button mat-raised-button (click)="saveWill()" color="primary">Save will</button>
+    <button mat-raised-button (click)="createContract()" color="warn">Create contract</button>
+
+  </mat-card>
+
 </div>
